@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+//function  for sending email
 async function sendEmail() {
   const infor = await transporter.sendMail({
     from: "Deviprasad <dpraimd@gmail.com>",
@@ -27,4 +28,5 @@ async function sendEmail() {
   console.log("message sent:::", infor.response);
 }
 
+//logging the error if mail sending fails
 sendEmail().catch((err) => console.log("Error:::", err));
