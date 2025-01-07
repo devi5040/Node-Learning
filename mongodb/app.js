@@ -1,10 +1,10 @@
 const path = require("path");
+const mongoose = require("mongoose");
 
 const express = require("express");
 const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
-const mongoConnect = require("./util/database").mongoConnect;
 
 const User = require("./models/user");
 
@@ -33,6 +33,9 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
-  app.listen(3000);
-});
+mongoose
+  .connect(
+    "mongodb+srv://user:dvUO1PWtcouK9rgQ@cluster0.h33qo.mongodb.net/shop?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(app.listen(3000))
+  .catch((error) => console.log(error));
