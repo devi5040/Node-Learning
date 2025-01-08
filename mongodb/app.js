@@ -52,5 +52,6 @@ mongoose
     });
 
     app.listen(3000);
+    console.log("Connected");
   })
   .catch((error) => console.log(error));
