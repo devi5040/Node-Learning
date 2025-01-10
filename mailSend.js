@@ -2,18 +2,18 @@ const nodemailer = require("nodemailer");
 
 //ethernal email for smtp server
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
+  host: "smtp.gmail.com",
   port: 587,
   auth: {
-    user: "natasha87@ethereal.email",
-    pass: "WMxfkCjrFZ7yve9DuV",
+    user: "dpraimd@gmail.com",
+    pass: "pxcq boxw bjnk srme",
   },
 });
 
 async function sendEmail() {
   const infor = await transporter.sendMail({
-    from: "Natasha <natasha87@ethereal.email>",
-    to: "dpraidola@gmail.com, dpraimd@gmail.com",
+    from: "Deviprasad <dpraimd@gmail.com>",
+    to: "dpraidola@gmail.com",
     subject: "Hello world",
     text: "Hello world...",
     html: "<h1>Hi Good morning</h1>",
