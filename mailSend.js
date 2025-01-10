@@ -1,12 +1,13 @@
 const nodemailer = require("nodemailer");
+require("nodemailer").config();
 
 //ethernal email for smtp server
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   auth: {
-    user: "dpraimd@gmail.com",
-    pass: "pxcq boxw bjnk srme",
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 });
 
