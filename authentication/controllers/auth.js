@@ -1,19 +1,34 @@
-const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
+const User = require("../models/user");
+
 exports.getLogin = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = undefined;
+  }
   res.render("auth/login", {
     path: "/login",
     pageTitle: "Login",
     isAuthenticated: false,
+    errorMessage: message,
   });
 };
 
 exports.getSignup = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = undefined;
+  }
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Signup",
     isAuthenticated: false,
+    errorMessage: message,
   });
 };
 
@@ -23,6 +38,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
+        req.flash("error", "Invalid email or password");
         return res.redirect("/login");
       }
       bcrypt
@@ -36,9 +52,11 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/");
             });
           }
+          req.flash("error", "Invalid email or password");
           res.redirect("/login");
         })
         .catch((err) => {
+          console.log(err);
           res.redirect("/login");
         });
     })
@@ -48,32 +66,30 @@ exports.postLogin = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log("email::", email, ":::password", password);
-
-  const confirmPassword = req.password;
+  const confirmPassword = req.body.confirmPassword;
   User.findOne({ email: email })
-    .then((existingUser) => {
-      console.log("Existing user", existingUser);
-
-      if (existingUser) {
+    .then((userDoc) => {
+      if (userDoc) {
+        req.flash("error", "Email already exists");
         return res.redirect("/signup");
       }
       return bcrypt
         .hash(password, 12)
         .then((hashedPassword) => {
-          console.log("Hasged Password:::", hashedPassword);
-
           const user = new User({
             email: email,
             password: hashedPassword,
-            cart: [],
+            cart: { items: [] },
           });
           return user.save();
         })
-        .then((result) => res.redirect("/login"))
-        .catch((error) => console.log(error));
+        .then((result) => {
+          res.redirect("/login");
+        });
     })
-    .catch((error) => console.log(error));
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.postLogout = (req, res, next) => {
