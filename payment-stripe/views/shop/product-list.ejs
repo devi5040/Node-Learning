@@ -27,19 +27,17 @@
                                     </p>
                                 </div>
                                 <div class="card__actions">
-                                    <a href="/admin/edit-product/<%= product._id %>?edit=true" class="btn">Edit</a>
-                                    
-                                        <input type="hidden" value="<%= product._id %>" name="productId">
- <input type="hidden" name="_csrf" value="<%= csrfToken %>">                                      <button class="btn" type="button" onclick="deleteProduct(this)">Delete</button>
-
-
+                                    <a href="/products/<%= product._id %>" class="btn">Details</a>
+                                    <% if (isAuthenticated) { %>
+                                        <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                                    <% } %>
                                 </div>
                             </article>
                             <% } %>
                     </div>
+                    <%- include('../includes/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
                     <% } else { %>
                         <h1>No Products Found!</h1>
                         <% } %>
             </main>
             <%- include('../includes/end.ejs') %>
-            <script src="../../public/js/admin.js"></script>
