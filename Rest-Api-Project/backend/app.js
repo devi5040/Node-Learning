@@ -1,6 +1,7 @@
 const express = require("express");
 const feedRoute = require("./routes/feed");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,5 +17,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/feed", feedRoute);
-
-app.listen(8080);
+mongoose
+  .connect(
+    "mongodb+srv://user:dvUO1PWtcouK9rgQ@cluster0.h33qo.mongodb.net/messages?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => app.listen(8080))
+  .catch((err) => console.log("error:", err));
