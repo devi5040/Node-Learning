@@ -28,7 +28,7 @@ body {
 }
 
 .title {
-    font-size: 1rem;
+    font-size: 24px;
     font-weight: 600;
     text-align: center;
     margin: 5% 0;
@@ -48,7 +48,7 @@ form {
 }
 
 .input-group label {
-    font-size: 0.6rem;
+    font-size: 18px;
     margin: 2% 0;
 }
 
@@ -57,14 +57,14 @@ form {
     border: 0.7px solid #d9d9d9;
     padding: 5px 5px;
     border-radius: 5px;
-    font-size: 0.4rem;
+    font-size: 18px;
 }
 
 .button {
     padding: 4px 10px;
     border: 0.75px solid #0229bf;
     border-radius: 15px;
-    font-size: 0.5rem;
+    font-size: 24px;
     cursor: pointer;
     background-color: #0229bf;
     -webkit-border-radius: 15px;

@@ -2,13 +2,29 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
 const authSchema = new Schema ({
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
+  facebookId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
   email: {
     type: String,
-    require: true,
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
-    require: true,
+  },
+  name: {
+    type: String,
+  },
+  avatar: {
+    type: String,
   },
 });
 
